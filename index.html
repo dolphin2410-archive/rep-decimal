@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #text {
+            resize: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>소수 변환기</h1>
+    <textarea id="text" cols="30" rows="3"></textarea>
+    <p>
+        <button id="dtf">소수 -> 분수</button>
+        <button id="ftd">분수 -> 소수</button>
+    </p>
+    <h2>결과: </h2>
+    <p id="result"></p>
+    <script>
+        const len = (num) => {
+            if (num == 0) {
+                return 0
+            } else {
+                return num.toString().length
+            }
+        }
+
+
+        let dtf = document.querySelector("#dtf")
+        let ftd = document.querySelector("#ftd")
+
+        let result = document.querySelector("#result")
+        dtf.addEventListener("click", () => {
+            let input = document.querySelector("#text").value
+            let raw_pre_repeat = input.match(/(?<=\d+\.)\d+/g)
+            let pre_repeat = parseInt(raw_pre_repeat ? raw_pre_repeat : "0")
+            let repeat = parseInt(input.match(/(?<=<)\d+(?=>)/g))
+
+            let len_pre_repeat = len(pre_repeat)
+            let len_repeat = len(repeat)
+
+            let natural = input.match(/\d+(?=\.)/g)
+
+            let full_pre_repeat = 0
+
+            if (pre_repeat != 0) {
+                full_pre_repeat = parseInt(natural + pre_repeat.toString())
+            } else {
+                full_pre_repeat = parseInt(natural)
+            }
+
+            let full_repeat = parseInt(full_pre_repeat.toString() + repeat.toString())
+
+            let numerator = full_repeat - full_pre_repeat
+            let denominator = "9".repeat(len_repeat) + "0".repeat(len_pre_repeat)
+
+            console.log(numerator)
+            console.log(denominator)
+
+            result.innerHTML = numerator + "/" + denominator
+        })
+    </script>
+</body>
+</html>
