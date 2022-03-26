@@ -56,9 +56,11 @@ dtf.addEventListener("click", () => {
         denominator = "1" + "0".repeat(len_pre_repeat)
     }
 
-    console.log(numerator)
-    console.log(denominator)
-
     let gcd_value = gcd(numerator, denominator)
     result.innerHTML = numerator / gcd_value + "/" + denominator / gcd_value
+})
+
+ftd.addEventListener("click", () => {
+    let input = document.querySelector("#text").value
+    result.innerHTML = eval(input)
 })
